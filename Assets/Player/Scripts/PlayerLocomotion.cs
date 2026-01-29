@@ -21,6 +21,9 @@ public class PlayerLocomotion : MonoBehaviour
 
     PlayerInput playerInput;
     InputAction moveAction;
+    InputAction jumpAction;
+    InputAction crouchAction;
+    InputAction lookAction;
 
     void OnEnable()
     {
@@ -29,6 +32,9 @@ public class PlayerLocomotion : MonoBehaviour
         var map = playerInput.currentActionMap;
 
         moveAction = map.FindAction("Move", true);
+        jumpAction = map.FindAction("Jump", true);
+        crouchAction = map.FindAction("Crouch", true);
+        lookAction = map.FindAction("Look", true);
     }
 
     void Start()
@@ -42,7 +48,7 @@ public class PlayerLocomotion : MonoBehaviour
     {
         Locomotion();
 
-        //RotateAndLook();
+        RotateAndLook();
         //PerspectiveCheck();
     }
 
@@ -55,10 +61,37 @@ public class PlayerLocomotion : MonoBehaviour
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= speed;
 
-            //Todo Jumping/Crouching
+            if (jumpAction.triggered)
+            {
+                moveDirection.y = jumpSpeed;
+            }
+            if (crouchAction.IsPressed())
+            {
+                characterController.height = 0.65f;
+                characterController.center = new Vector3(0f, 0.5f, 0f);
+            }
+            else //if crouch unpressed
+            {
+                characterController.height = 2f;
+                characterController.center = new Vector3(0f, 1f, 0f);
+            }
         }
 
         moveDirection.y -= gravity * Time.deltaTime;
         characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    void RotateAndLook()
+    {
+        Vector2 look = lookAction.ReadValue<Vector2>();
+
+        rotateX = look.x * mouseSensitivity;
+        rotateY -= look.y * mouseSensitivity;
+
+        rotateY = Mathf.Clamp(rotateY, lookUpClamp, lookDownClamp);
+
+        transform.Rotate(0f, rotateX, 0f);
+
+        cameraContainer.transform.localRotation = Quaternion.Euler(rotateY, 0f, 0f);
     }
 }
