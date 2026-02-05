@@ -698,6 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   playerTransform: {fileID: 509567112}
+  maxDistanceToTarget: 6
   rawDamage: 10
   delayTimer: 2
 --- !u!4 &311092632
