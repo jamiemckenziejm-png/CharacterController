@@ -684,6 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 057d4a09c2072664690d4bfdc8170ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitManager
+  hitPoints: 25
 --- !u!114 &311092631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,6 +697,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe10c1608956284aa72eda74d90eb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  playerTransform: {fileID: 509567112}
+  rawDamage: 10
+  delayTimer: 2
 --- !u!4 &311092632
 Transform:
   m_ObjectHideFlags: 0
@@ -1252,6 +1256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346434056b8c3094f9341bc685e7cf53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  rawDamage: 10
 --- !u!1 &750846226
 GameObject:
   m_ObjectHideFlags: 0
