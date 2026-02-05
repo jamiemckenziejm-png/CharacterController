@@ -9,6 +9,8 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField]
     Transform playerTransform; // Reference to the player's transform component, which will be assigned in the Unity editor
     Transform gunTransform; // Reference to the enemy's gun transform component, which will be assigned in the Start method
+
+    [SerializeField]
     float maxDistanceToTarget = 6f; // The maximum distance at which the enemy can attack the player
     float distanceToTarget; // Variable to store the current distance from the enemy to the player
 
@@ -31,10 +33,10 @@ public class EnemyAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Atttack(); // Call the Atttack method to handle the enemy's attack logic
+        Attack(); // Call the Atttack method to handle the enemy's attack logic
     }
 
-    bool IsreadyToAtack()
+    bool IsReadyToAtack()
     {
         if (tick < delayTimer)
         {
@@ -46,17 +48,17 @@ public class EnemyAttack : MonoBehaviour
 
     void LookAtTarget()
     {
-        //this.trannsform.LookAt(playerTransform.postition); // Rotate the enemy to face the player's position
+        //transform.LookAt(playerTransform.position); // Rotate the enemy to face the player's position
         Vector3 lookVector = playerTransform.position - transform.position; // Calculate the vector from the enemy to the player
         lookVector.y = transform.position.y; // Keep the enemy's y-axis rotation unchanged to prevent tilting
         Quaternion rotation = Quaternion.LookRotation(lookVector); // Create a rotation that looks in the direction of the lookVector
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.01f); // Smoothly rotate the enemy towards the player using spherical linear interpolation (Slerp) with a small step value for smoothness
     }
 
-    void Atttack()
+    void Attack()
     {
-        distanceToTarget = Vector3.Distance(transform.position, gunTransform.position); // Calculate the distance from the enemy to the player's position using the gun's position as a reference point
-        attackReady = IsreadyToAtack(); // Check if the enemy is ready to attack by calling the IsreadyToAtack method
+        distanceToTarget = Vector3.Distance(playerTransform.position, gunTransform.position); // Calculate the distance from the enemy to the player's position using the gun's position as a reference point
+        attackReady = IsReadyToAtack(); // Check if the enemy is ready to attack by calling the IsreadyToAtack method
 
         if (distanceToTarget <= maxDistanceToTarget)
         {
