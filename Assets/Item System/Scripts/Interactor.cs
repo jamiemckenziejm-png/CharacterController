@@ -8,7 +8,7 @@ public class Interactor : MonoBehaviour
     Transform actorCamera;
     LayerMask layerMask;
 
-    [SerializeField] private float maxDistanceFromCamera = 10f; // Maximum distance for interaction
+    [SerializeField] private float maxDistanceFromCamera = 10f; //maximum distance from camera
 
     [SerializeField] private float maxInteractableDistance = 3f; // Maximum distance for interaction
     private float distancveFromActor;
